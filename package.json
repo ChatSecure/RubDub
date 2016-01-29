@@ -1,0 +1,17 @@
+{
+  "name": "rubdub",
+  "version": "0.1.0",
+  "description": "A simple pub sub reciever",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "tape tests/test.js"
+  },
+  "author": "David Chiles",
+  "license": "ISC",
+  "dependencies": {
+    "node-xmpp-server": "^2.1.2"
+  },
+  "devDependencies": {
+    "tape": "^4.4.0"
+  }
+}
