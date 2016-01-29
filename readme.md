@@ -1,4 +1,4 @@
-# RubDub
+# RubDub [![Build Status](https://travis-ci.org/ChatSecure/RubDub.svg?branch=master)](https://travis-ci.org/ChatSecure/RubDub)
 
 A simple XMPP Push Service for [XEP-0357: Push Notifications ](http://xmpp.org/extensions/xep-0357.html).
 
