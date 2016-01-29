@@ -14,5 +14,5 @@ Interoperability between XMPP Push Notifications and the ChatSecure app server.
 `npm install`
 
 ## Todo
-- [ ] Needs testing with real push tokens
-- [ ] Needs testing against *real* XMPP server with XEP-0357
+- [ ] Needs testing with real push tokens.
+- [ ] Needs testing against *real* XMPP server with XEP-0357.
