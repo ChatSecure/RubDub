@@ -9,7 +9,7 @@ var stanzaString = '<iq type=\'set\'     from=\'user@example.com\'     to=\'push
 test('Stanza Parsing', function(t) {
   var s = stanza.parse(stanzaString)
 
-  xmpp.parseStanza(s,function(error,result){
+  xmpp.parsePushStanza(s,function(error,result){
     t.equal(result.token,'eruio234vzxc2kla-91')
     t.equal(result.messageCount,3)
     t.end(error);
@@ -17,7 +17,7 @@ test('Stanza Parsing', function(t) {
 
 })
 
-test("XMPP-emit", function(t){
+test("XMPP-emit", function(t) {
 
   var info = "something cool"
 
@@ -31,6 +31,13 @@ test("XMPP-emit", function(t){
 
 })
 
+test('XMPP-QueryResponse', function(t) {
+  var response = xmpp.queryResponse('user@example.com','me@push.com')
+  var expectedResult = "<iq from=\"me@push.com\" to=\"user@example.com\" id=\"disco1\" type=\"result\"><query xmlns=\"http://jabber.org/protocol/disco#info\"><identity category=\"pubsub\" type=\"push\"/><feature var=\"urn:xmpp:push:0\"/></query></iq>"
+  t.equal(response.toString(),expectedResult)
+  t.end()
+})
+
 test('API-messageJson', function(t) {
   api.messageJson('Thisisatoken',null,function(err,result){
     t.equal(JSON.stringify(result),JSON.stringify({'token':'Thisisatoken'}))
@@ -38,12 +45,14 @@ test('API-messageJson', function(t) {
   })
 })
 
-test('API-messageJson-error', function(t){
+test('API-messageJson-error', function(t) {
   api.messageJson(null,null,function(err,result){
     t.ok(err)
     t.end()
   })
 })
+
+
 
 /*
 //Testing against real server either change server.js to include settings for localhost or running remote server
