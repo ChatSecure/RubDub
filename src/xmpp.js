@@ -116,8 +116,11 @@ xmppServer.prototype.handleStanza = function(stanza) {
     this.router.send(response)
 
   } else {
+    var that = this
     parsePushStanza(stanza,function(err,result){
-      this.emitPushEvent(pushInfo)
+      if (result) {
+        that.emitPushEvent(result)
+      }
     });
   }
 }

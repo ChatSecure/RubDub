@@ -59,7 +59,8 @@ module.exports.sendMessage = function (token, message, cb) {
       cb(err)
       return
     }
-
+    
+    //Need to catch errors better
     performRequest('/messages','POST',JSON.stringify(result),function(err,result){
       cb(err,result)
     })
