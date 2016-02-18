@@ -11,13 +11,14 @@ xmppServer.prototype = new events.EventEmitter;
 
 xmppServer.prototype.setup = function(s2sPort, bindAddress, domain, opts) {
   this.router = new xmpp.Router(s2sPort, bindAddress, opts)
+  var server = this
   this.router.register(domain,function (stanza){
-    this.handleStanza(stanza)
+    server.handleStanza(stanza)
   })
 }
 
 var formDataValue = function(stanza, varName) {
-  if (!varName) {
+  if (!varName || !stanza ) {
     return
   }
 
@@ -66,22 +67,29 @@ var parsePushStanza = function (stanza,cb) {
 
   var result = {}
 
-  var notificationNode = stanza.getChildrenByFilter(function (child){
-    if (child.parent) {
-      return child.parent.name === 'notification' && child.parent.attrs['xmlns'] === 'urn:xmpp:push:0' && child.name === 'x' && child.attrs['xmlns'] === 'jabber:x:data'
-    }
+  var publishStanza = stanza.getChildrenByFilter( function(child){
+    return child.name === 'publish'
   },true)[0]
 
-  result.messageCount = parseInt(formDataValue(notificationNode,'message-count'))
-
-  var publishOptions = stanza.getChildrenByFilter(function (child){
-    if (child.parent) {
-      return child.parent.name === 'publish-options' && child.name === 'x' && child.attrs['xmlns'] === 'jabber:x:data'
-    }
-    return false
+  var formData = publishStanza.getChildrenByFilter( function(child){
+    return child.name === 'x' && child.attrs['xmlns'] === "jabber:x:data"
   },true)[0]
 
-  token = formDataValue(publishOptions,'token')
+  result.messageCount = parseInt(formDataValue(formData,'message-count'))
+
+  var publishOptionsStanza = stanza.getChildrenByFilter( function(child){
+    return child.name === 'publish-options'
+  },true)[0]
+
+  var token = null
+  if (publishOptionsStanza) {
+
+    var publishOptionsFormData = publishOptionsStanza.getChildrenByFilter( function(child){
+      return child.name === 'x' && child.attrs['xmlns'] === "jabber:x:data"
+    },true)[0]
+
+    token = formDataValue(publishOptionsFormData,'token')
+  }
 
   result.token = token
 
@@ -97,10 +105,10 @@ xmppServer.prototype.emitPushEvent = function(pushInfo) {
 xmppServer.prototype.handleStanza = function(stanza) {
   var queryChild = stanza.getChildrenByFilter(function (child){
     // check if it's a disco queryChild
-    return child.name === 'query' && child.attrs['xmlns'] === 'http://jabber.org/protocol/disco#info'
+    return child.name === 'query' && child.attrs['xmlns'] === 'http:\/\/jabber.org\/protocol\/disco#info'
   })[0]
-  
-  if (queryChlid) {
+
+  if (queryChild) {
     //This is a disco query need to respond
     var userJID = stanza.attrs['from']
     var serverJID = stanza.attrs['to']
