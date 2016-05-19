@@ -26,7 +26,7 @@ var performRequest = function(endpoint,method,data,cb) {
     host: serverInfo.host,
     path: serverInfo.apiPath + endpoint +'/',
     method: method,
-    port: 8001,
+    port: serverInfo.port,
     headers: headers
   }
 

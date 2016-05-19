@@ -1,4 +1,5 @@
 module.exports = {
-  host:'chatsecure-push.herokuapp.com',
-  apiPath :'/api/v1'
+  host:'push.chatsecure.org',
+  apiPath :'/api/v1',
+  port: 443
 }
