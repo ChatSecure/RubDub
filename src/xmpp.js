@@ -7,14 +7,14 @@ function xmppServer() {
   events.EventEmitter.call(this);
 }
 
-xmppServer.prototype = new events.EventEmitter;
+xmppServer.prototype = new events.EventEmitter();
 
 xmppServer.prototype.setup = function(s2sPort, bindAddress, domain, opts) {
-  this.router = new xmpp.Router(s2sPort, bindAddress, opts)
-  var server = this
+  this.router = new xmpp.Router(s2sPort, bindAddress, opts);
+  var server = this;
   this.router.register(domain,function (stanza){
-    server.handleStanza(stanza)
-  })
+    server.handleStanza(stanza);
+  });
 }
 
 var formDataValue = function(stanza, varName) {
