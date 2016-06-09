@@ -9,7 +9,12 @@ Utility Functions
 */
 
 var handleError = function(err) {
-  console.log(error);
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("Unkown Error")
+  }
+
 };
 
 /**
@@ -89,5 +94,5 @@ friend.on('stanza', function(stanza){
 });
 
 friend.on('error', function(stanza){
-  handleError(error);
+  handleError(stanza);
 });
