@@ -11,7 +11,12 @@ Interoperability between XMPP Push Notifications and the ChatSecure app server.
 3. It then takes that token and sends `POST` to the [ChatSecure Push Server](https://github.com/ChatSecure/ChatSecure-Push-Server) `/messages` endpoint.
 
 ## Setup
-`npm install`
+```bash
+npm install
+```
 
-## Todo
-- [ ] Needs testing with real push tokens.
+## Running
+
+```bash
+node src/index.js -p [PORT] -b [BIND_ADDRESS] -d [DOMAIN] -k [TLS_KEY_PATH] -c [TLS_CERT_PATH]
+```
