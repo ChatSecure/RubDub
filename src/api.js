@@ -1,5 +1,4 @@
 var https = require('https');
-var serverInfo = require('./server.js');
 var url = require('url');
 var PORT = 443;
 
@@ -61,8 +60,8 @@ module.exports.sendMessage = function (endpoint, token, message, cb) {
       cb(err);
       return;
     }
-    var host = serverInfo.host;
-    var path = serverInfo.apiPath;
+    var host = "";
+    var path = "";
     if (endpoint) {
       var parsed = url.parse(endpoint);
       host = parsed.host;
