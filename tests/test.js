@@ -78,7 +78,7 @@ test('API-messageJson-error', function(t) {
 /*
 //Testing against real server either change server.js to include settings for localhost or running remote server
 test('API-messageSend', function(t){
-  api.sendMessage("https://push.chatsecure.org/api/v1/messages",'token123456',null,function(err,result){
+  api.sendMessage("https://push.chatsecure.org/api/v1/messages/",'a4236a30bb01d99ee78bc1a5f0e0c4717e982b59',null,function(err,result){
     t.ok(err,err);
     t.end();
   });
