@@ -1,72 +1,32 @@
-var https = require('https');
-var serverInfo = require('./server.js')
+var request = require('request');
 
 var messageJson = function (token, message, cb) {
 
   if (!token) {
-    cb(new Error('Needs token'))
-    return
+    cb(new Error('Needs token'));
+    return;
   }
 
-  var result = {'token':token}
+  var result = {'token':token};
   if (message) {
-    result['message'] = message
+    result.message = message;
   }
-  cb(null,result)
-}
+  cb(null,result);
+};
 
-var performRequest = function(endpoint,method,data,cb) {
-
-  headers = {
-        'Content-Type': 'application/json',
-        'Content-Length': data.length
-      };
-
-  var options = {
-    host: serverInfo.host,
-    path: serverInfo.apiPath + endpoint +'/',
-    method: method,
-    port: serverInfo.port,
-    headers: headers
-  }
-
-  var req = https.request(options, function(res) {
-    res.setEncoding('utf-8');
-
-    var responseString = '';
-
-    res.on('data', function(data) {
-      responseString += data;
-    });
-
-    res.on('end', function() {
-      if (responseString.length > 0) {
-        var responseObject = JSON.parse(responseString);
-        cb(null,responseObject);
-      } else {
-        cb(new Error('No response'))
-      }
-
-    });
-  })
-  req.write(data);
-  req.end();
-}
-
-module.exports.sendMessage = function (token, message, cb) {
+module.exports.sendMessage = function (endpoint, token, message, cb) {
   messageJson(token,message,function(err,result){
     if (err) {
-      cb(err)
-      return
+      cb(err);
+      return;
     }
-    
-    //Need to catch errors better
-    performRequest('/messages','POST',JSON.stringify(result),function(err,result){
-      cb(err,result)
-    })
-  })
+    request.post(endpoint,{
+      formData:result,
+      json:true
+    },function(err, res, body){
+      cb(err,res);
+    });
+  });
+};
 
-}
-
-
-module.exports.messageJson = messageJson
+module.exports.messageJson = messageJson;
