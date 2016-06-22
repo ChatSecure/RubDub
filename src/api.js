@@ -1,4 +1,5 @@
 var request = require('request');
+var url = require('url');
 
 var messageJson = function (token, message, cb) {
 
@@ -15,6 +16,13 @@ var messageJson = function (token, message, cb) {
 };
 
 module.exports.sendMessage = function (endpoint, token, message, cb) {
+
+  var urlObject = url.parse(endpoint);
+  if (urlObject.protocol !== 'https:') {
+    cb(new Error('Requires https'));
+    return;
+  }
+
   messageJson(token,message,function(err,result){
     if (err) {
       cb(err);
