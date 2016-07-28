@@ -91,17 +91,20 @@ xmppServer.prototype.emitPushEvent = function(pushInfo) {
 xmppServer.prototype.handleStanza = function(stanza) {
   if (Disco.isDiscoQuery(stanza)) {
     //This is a disco query need to respond
-    var userJID = stanza.attrs.from;
-    var serverJID = stanza.attrs.to;
-    var id = stanza.attrs.id;
+    var that = this;
     Disco.discoResponse(stanza, function(err,response) {
-      this.router.send(response);
+      that.router.send(response);
     });
 
   } else {
     var that = this;
     parsePushStanza(stanza,function(err,result){
       if (result) {
+        var fromJID = stanza.attrs.from;
+        var toJID = stanza.attrs.to;
+        var id = stanza.attrs.id;
+        var response = new ltx.Element('iq',{'from':toJID,'to':fromJID,'id':id,'type':'result'});
+        that.router.send(response);
         that.emitPushEvent(result);
       }
     });
