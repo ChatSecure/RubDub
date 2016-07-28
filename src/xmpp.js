@@ -70,6 +70,12 @@ var parsePushStanza = function (stanza,cb) {
     return child.name === 'publish';
   },true)[0];
 
+  if ( typeof publishStanza === "undefined" || publishStanza === null ) {
+    var error = new Error('Invalid stanza xml. Missing publish.');
+    cb(error);
+    return;
+  }
+  
   var formData = publishStanza.getChildrenByFilter( function(child){
     return child.name === 'x' && child.attrs.xmlns === "jabber:x:data";
   },true)[0];
@@ -81,7 +87,7 @@ var parsePushStanza = function (stanza,cb) {
   },true)[0];
 
   var token = null;
-  if (publishOptionsStanza) {
+  if (typeof(publishOptionsStanza) !== "undefined" && publishOptionsStanza !== null) {
 
     var publishOptionsFormData = publishOptionsStanza.getChildrenByFilter( function(child){
       return child.name === 'x' && child.attrs.xmlns === "jabber:x:data";

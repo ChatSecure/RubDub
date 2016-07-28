@@ -7,6 +7,7 @@ var stanza = require('node-xmpp-server');
 var stanzaString =        '<iq type=\'set\' from=\'user@example.com\' to=\'push-5.client.example\' id=\'n12\'> <pubsub xmlns=\'http:\/\/jabber.org\/protocol\/pubsub\'> <publish node=\'yxs32uqsflafdk3iuqo\'> <item> <notification xmlns=\'urn:xmpp:push:0\'> <x xmlns=\'jabber:x:data\'> <field var=\'FORM_TYPE\'><value>urn:xmpp:push:summary<\/value><\/field> <field var=\'message-count\'><value>3<\/value><\/field> <field var=\'last-message-sender\'><value>juliet@capulet.example\/balcony<\/value><\/field> <field var=\'last-message-body\'><value>Wherefore art thou, Romeo?<\/value><\/field> <\/x> <additional xmlns=\'http:\/\/example.com\/custom\'>Additional custom elements<\/additional> <\/notification> <\/item> <\/publish> <publish-options> <x xmlns=\'jabber:x:data\'> <field var=\'FORM_TYPE\'><value>http:\/\/jabber.org\/protocol\/pubsub#publish-options<\/value><\/field> <field var=\'token\'><value>eruio234vzxc2kla-91<\/value><\/field> <\/x> <\/publish-options> <\/pubsub> <\/iq>';
 var prosodyStanzaString = '<iq type=\'set\' to=\'push-5.client.example\' from=\'user@example.com\' id=\'push\'><pubsub xmlns=\'http:\/\/jabber.org\/protocol\/pubsub\'><publish><item><x type=\'form\' xmlns=\'jabber:x:data\'><field type=\'hidden\' var=\'FORM_TYPE\'><value>urn:xmpp:push:summary<\/value><\/field><field type=\'text-single\' var=\'message-count\'><value>1<\/value><\/field><field type=\'text-single\' var=\'pending-subscription-count\'\/><field type=\'jid-single\' var=\'last-message-sender\'><value>b@example\/0676b9f5-e106-4242-9199-d0354e74cd30<\/value><\/field><field type=\'text-single\' var=\'last-message-body\'><value>Hey where you at bro?<\/value><\/field><\/x><\/item><\/publish><\/pubsub><\/iq>';
 var prosodyStanzaSecretString = '<iq type=\'set\' to=\'push-5.client.example\' from=\'user@example.com\' id=\'push\'><pubsub xmlns=\'http:\/\/jabber.org\/protocol\/pubsub\'><publish><item><x type=\'form\' xmlns=\'jabber:x:data\'><field type=\'hidden\' var=\'FORM_TYPE\'><value>urn:xmpp:push:summary<\/value><\/field><field type=\'text-single\' var=\'message-count\'><value>1<\/value><\/field><field type=\'text-single\' var=\'pending-subscription-count\'\/><field type=\'jid-single\' var=\'last-message-sender\'><value>b@example.org\/ab25843d-f12f-445a-8458-4056a1fb6e15<\/value><\/field><field type=\'text-single\' var=\'last-message-body\'><value>Hey where you at bro?<\/value><\/field><\/x><\/item><\/publish><publish-options><x xmlns=\'jabber:x:data\'><field var=\'FORM_TYPE\'><value>http:\/\/jabber.org\/protocol\/pubsub#publish-options<\/value><\/field><field var=\'token\'><value>supersecret<\/value><\/field><field var=\'endpoint\'><value>https://example.com/messages<\/value><\/field><\/x><\/publish-options><\/pubsub><\/iq>';
+var pingStanza = '<iq from=\'capulet.lit\' to\'push-5.client.example\' id=\'s2s1\' type=\'get\'> <ping xmlns=\'urn:xmpp:ping\'/></iq>';
 
 test('Stanza Parsing', function(t) {
   var s = stanza.parse(stanzaString);
@@ -69,6 +70,15 @@ test('API-messageJson', function(t) {
 test('API-messageJson-error', function(t) {
   api.messageJson(null,null,function(err,result){
     t.ok(err);
+    t.end();
+  });
+});
+
+test('Non-disco-non-push-stanza',function(t) {
+  var s = stanza.parse(pingStanza);
+
+  xmpp.parsePushStanza(s,function(error,result){
+    t.ok(error);
     t.end();
   });
 });
