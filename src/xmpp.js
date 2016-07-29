@@ -11,9 +11,10 @@ function xmppServer() {
 xmppServer.prototype = new events.EventEmitter();
 
 xmppServer.prototype.setup = function(s2sPort, bindAddress, domain, opts) {
-  this.router = new xmpp.Router(s2sPort, bindAddress, opts);
-  var server = this;
-  this.router.register(domain,function (stanza){
+  this.router = new xmpp.Router(s2sPort, bindAddress, {secureDomains:[domain]});
+  var server = this.router;
+  this.router.loadCredentialsFromFile(domain,opts.tls.keyPath,opts.tls.certPath);
+  this.router.register(domain,function (stanza) {
     server.handleStanza(stanza);
   });
 };
