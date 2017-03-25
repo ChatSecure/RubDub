@@ -32,6 +32,11 @@
       "from": "assert-plus@>=0.2.0 <0.3.0",
       "resolved": "https://registry.npmjs.org/assert-plus/-/assert-plus-0.2.0.tgz"
     },
+    "async": {
+      "version": "1.2.1",
+      "from": "async@>=1.2.1 <1.3.0",
+      "resolved": "https://registry.npmjs.org/async/-/async-1.2.1.tgz"
+    },
     "asynckit": {
       "version": "0.4.0",
       "from": "asynckit@>=0.4.0 <0.5.0",
@@ -123,6 +128,12 @@
       "from": "debug@>=2.2.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/debug/-/debug-2.6.3.tgz"
     },
+    "decache": {
+      "version": "3.1.0",
+      "from": "decache@>=3.0.5 <4.0.0",
+      "resolved": "https://registry.npmjs.org/decache/-/decache-3.1.0.tgz",
+      "optional": true
+    },
     "deep-equal": {
       "version": "1.0.1",
       "from": "deep-equal@>=1.0.1 <1.1.0",
@@ -173,6 +184,12 @@
       "version": "1.0.2",
       "from": "extsprintf@1.0.2",
       "resolved": "https://registry.npmjs.org/extsprintf/-/extsprintf-1.0.2.tgz"
+    },
+    "find": {
+      "version": "0.2.7",
+      "from": "find@>=0.2.4 <0.3.0",
+      "resolved": "https://registry.npmjs.org/find/-/find-0.2.7.tgz",
+      "optional": true
     },
     "for-each": {
       "version": "0.3.2",
@@ -367,6 +384,11 @@
       "from": "lodash.assign@>=4.0.0 <5.0.0",
       "resolved": "https://registry.npmjs.org/lodash.assign/-/lodash.assign-4.2.0.tgz"
     },
+    "lru-cache": {
+      "version": "2.2.4",
+      "from": "lru-cache@>=2.2.1 <2.3.0",
+      "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-2.2.4.tgz"
+    },
     "ltx": {
       "version": "2.7.1",
       "from": "ltx@>=2.5.0 <3.0.0",
@@ -473,6 +495,11 @@
       "from": "request@>=2.81.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/request/-/request-2.81.0.tgz"
     },
+    "request-ip": {
+      "version": "1.2.3",
+      "from": "request-ip@>=1.2.3 <1.3.0",
+      "resolved": "https://registry.npmjs.org/request-ip/-/request-ip-1.2.3.tgz"
+    },
     "resolve": {
       "version": "1.1.7",
       "from": "resolve@>=1.1.7 <1.2.0",
@@ -484,6 +511,23 @@
       "from": "resumer@>=0.0.0 <0.1.0",
       "resolved": "https://registry.npmjs.org/resumer/-/resumer-0.0.0.tgz",
       "dev": true
+    },
+    "rollbar": {
+      "version": "0.6.5",
+      "from": "rollbar@latest",
+      "resolved": "https://registry.npmjs.org/rollbar/-/rollbar-0.6.5.tgz",
+      "dependencies": {
+        "debug": {
+          "version": "2.2.0",
+          "from": "debug@2.2.0",
+          "resolved": "https://registry.npmjs.org/debug/-/debug-2.2.0.tgz"
+        },
+        "ms": {
+          "version": "0.7.1",
+          "from": "ms@0.7.1",
+          "resolved": "https://registry.npmjs.org/ms/-/ms-0.7.1.tgz"
+        }
+      }
     },
     "safe-buffer": {
       "version": "5.0.1",
@@ -534,6 +578,12 @@
       "version": "2.3.2",
       "from": "tough-cookie@>=2.3.0 <2.4.0",
       "resolved": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.3.2.tgz"
+    },
+    "traverse-chain": {
+      "version": "0.1.0",
+      "from": "traverse-chain@>=0.1.0 <0.2.0",
+      "resolved": "https://registry.npmjs.org/traverse-chain/-/traverse-chain-0.1.0.tgz",
+      "optional": true
     },
     "tunnel-agent": {
       "version": "0.6.0",

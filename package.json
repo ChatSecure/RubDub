@@ -7,16 +7,17 @@
     "test": "tape tests/test.js"
   },
   "homepage": "https://github.com/ChatSecure/RubDub",
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/ChatSecure/RubDub.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ChatSecure/RubDub.git"
   },
   "author": "David Chiles",
   "license": "ISC",
   "dependencies": {
     "commander": "^2.9.0",
     "node-xmpp-server": "^2.2.7",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "rollbar": "^0.6.5"
   },
   "devDependencies": {
     "tape": "^4.6.3"
