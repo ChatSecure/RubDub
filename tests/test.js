@@ -58,7 +58,7 @@ test("XMPP-emit", function(t) {
 
 test('API-messageJson', function(t) {
   api.messageJson('Thisisatoken',null,function(err,result){
-    t.equal(JSON.stringify(result),JSON.stringify({'token':'Thisisatoken'}));
+    t.equal(JSON.stringify(result),JSON.stringify({'token':'Thisisatoken', 'type': 'message'}));
     t.end(err);
   });
 });
