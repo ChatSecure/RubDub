@@ -8,7 +8,7 @@ var messageJson = function (token, message, cb) {
     return;
   }
 
-  var result = {'token':token};
+  var result = {'token':token, 'type': 'message'};
   if (message) {
     result.message = message;
   }
