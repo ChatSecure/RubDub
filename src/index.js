@@ -4,7 +4,7 @@ var program = require('commander');
 var rollbar = require("rollbar");
 
 program
-  .version('0.1.1')
+  .version('0.1.2')
   .option('-p, --port <n>', 'The server port number. Defaults to 5269.', parseInt)
   .option('-b, --bindAddress <value>', 'The server bind address')
   .option('-d, --domainAddress <value>', 'The server domain')
@@ -39,7 +39,7 @@ var options = {
 var xServer = new xmpp.xmppServer();
 xServer.setup(port,bindAddress,domain,options);
 xServer.on('push',function(pushInfo){
-  api.sendMessage(pushInfo.endpoint,pushInfo.token,null,function(err,result){
+  api.sendMessage(pushInfo.endpoint,pushInfo.token,null,pushInfo.priority,function(err,result){
 
   });
 });

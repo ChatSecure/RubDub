@@ -57,14 +57,21 @@ test("XMPP-emit", function(t) {
 });
 
 test('API-messageJson', function(t) {
-  api.messageJson('Thisisatoken',null,function(err,result){
-    t.equal(JSON.stringify(result),JSON.stringify({'token':'Thisisatoken', 'type': 'message'}));
+  api.messageJson('Thisisatoken',null,null,function(err,result){
+    t.equal(JSON.stringify(result),JSON.stringify({'token':'Thisisatoken', 'priority': 'low'}));
+    t.end(err);
+  });
+});
+
+test('API-messageJson-high', function(t) {
+  api.messageJson('Thisisatoken',null,"high",function(err,result){
+    t.equal(JSON.stringify(result),JSON.stringify({'token':'Thisisatoken', 'priority': 'high'}));
     t.end(err);
   });
 });
 
 test('API-messageJson-error', function(t) {
-  api.messageJson(null,null,function(err,result){
+  api.messageJson(null,null,null,function(err,result){
     t.ok(err);
     t.end();
   });

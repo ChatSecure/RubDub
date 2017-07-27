@@ -1,21 +1,23 @@
 var request = require('request');
 var url = require('url');
 
-var messageJson = function (token, message, cb) {
+var messageJson = function (token, message, priority, cb) {
 
   if (!token) {
     cb(new Error('Needs token'));
     return;
   }
-
-  var result = {'token':token, 'type': 'message'};
+  if (!priority) {
+    priority = "low";
+  }
+  var result = {'token':token, 'priority': priority};
   if (message) {
     result.message = message;
   }
   cb(null,result);
 };
 
-module.exports.sendMessage = function (endpoint, token, message, cb) {
+module.exports.sendMessage = function (endpoint, token, message, priority, cb) {
 
   var urlObject = url.parse(endpoint);
   if (urlObject.protocol !== 'https:') {
@@ -23,7 +25,7 @@ module.exports.sendMessage = function (endpoint, token, message, cb) {
     return;
   }
 
-  messageJson(token,message,function(err,result){
+  messageJson(token,message,priority,function(err,result){
     if (err) {
       cb(err);
       return;

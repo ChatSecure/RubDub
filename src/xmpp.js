@@ -62,7 +62,16 @@ var parsePushStanza = function (stanza,cb) {
   },true)[0];
 
   result.messageCount = parseInt(formDataValue(formData,'message-count'));
-
+  var messagePriority = formDataValue(formData,'last-message-priority');
+  var messageBody = formDataValue(formData,'last-message-body');
+  if (messagePriority === null) {
+    if (messageBody !== null) {
+      messagePriority = "high";
+    } else {
+      messagePriority = "low";
+    }
+  }
+  
   var publishOptionsStanza = stanza.getChildrenByFilter( function(child){
     return child.name === 'publish-options';
   },true)[0];
@@ -80,6 +89,7 @@ var parsePushStanza = function (stanza,cb) {
 
   result.token = token;
   result.endpoint = endpointURL;
+  result.priority = messagePriority;
 
   cb(null,result);
 };
