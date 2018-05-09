@@ -30,6 +30,10 @@ module.exports.sendMessage = function (endpoint, token, message, priority, cb) {
       cb(err);
       return;
     }
+    if (result.priority === 'low') {
+      cb(new Error('Ignoring low priority push'));
+      return;
+    }
     request.post(endpoint,{
       formData:result,
       json:true
